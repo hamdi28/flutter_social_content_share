@@ -108,6 +108,7 @@ public class FlutterSocialContentSharePlugin implements FlutterPlugin, MethodCal
         url = call.argument("url");
         imageUrl = call.argument("imageUrl");
         imageName = call.argument("imageName");
+        Log.d("the sharetype is " + type);
 
         switch (type) {
           case "ShareType.facebookWithoutImage":
@@ -116,6 +117,9 @@ public class FlutterSocialContentSharePlugin implements FlutterPlugin, MethodCal
           case "ShareType.instagramWithImageUrl":
             getImageBitmap(imageUrl, result);
             break;
+          case "ShareType.instagramWithVideo":
+            getImageBitmap(imageUrl, result);
+            break;  
           default:
             result.notImplemented();
             break;
