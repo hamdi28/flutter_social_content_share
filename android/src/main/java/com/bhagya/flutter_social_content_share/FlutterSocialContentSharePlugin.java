@@ -208,7 +208,7 @@ public class FlutterSocialContentSharePlugin implements FlutterPlugin, MethodCal
   private Uri getUriFromFilePath(String filePath) {
     File videoFile = new File(filePath);
     if (videoFile.exists()) {
-      return Uri.fromFile(videoFile);
+      return FileProvider.getUriForFile(getApplicationContext(), getPackageName()+".fileprovider", videoFile);
     }
     return null;
   }
