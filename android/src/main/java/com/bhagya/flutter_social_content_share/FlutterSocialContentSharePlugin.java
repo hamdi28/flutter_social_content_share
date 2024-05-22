@@ -68,6 +68,7 @@ public class FlutterSocialContentSharePlugin implements FlutterPlugin, MethodCal
   private String quote;
   private String url;
   private String imageUrl;
+  private String videoPath;
   private String imageName;
   private String number;
   private String textMsg;
