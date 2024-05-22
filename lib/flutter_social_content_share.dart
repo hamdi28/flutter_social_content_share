@@ -22,13 +22,15 @@ class FlutterSocialContentShare {
       String? quote,
       String? url,
       String? imageName,
-      String? imageUrl}) async {
+      String? imageUrl,
+      String? videoPath}) async {
     final Map<String, dynamic> params = <String, dynamic>{
       "type": type.toString(),
       "quote": quote,
       "url": url,
       "imageName": imageName,
-      "imageUrl": imageUrl
+      "imageUrl": imageUrl,
+      "videoPath": videoPath
     };
     final String? message = await _channel.invokeMethod('share', params);
     return message;

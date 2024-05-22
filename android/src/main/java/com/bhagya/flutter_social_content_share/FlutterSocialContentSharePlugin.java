@@ -107,6 +107,7 @@ public class FlutterSocialContentSharePlugin implements FlutterPlugin, MethodCal
         quote = call.argument("quote");
         url = call.argument("url");
         imageUrl = call.argument("imageUrl");
+        videoPath = call.argument("videoPath");
         imageName = call.argument("imageName");
         System.out.println("Hello tyyyyyyyyyyyyyyyy"  +type);
 
@@ -118,7 +119,7 @@ public class FlutterSocialContentSharePlugin implements FlutterPlugin, MethodCal
             getImageBitmap(imageUrl, result);
             break;
           case "ShareType.instagramWithVideo":
-            getImageBitmap(imageUrl, result);
+          shareVideoToInstagram(videoPath, result);
             break;  
           default:
             result.notImplemented();
@@ -201,6 +202,32 @@ public class FlutterSocialContentSharePlugin implements FlutterPlugin, MethodCal
     } catch (ActivityNotFoundException e) {
       e.printStackTrace();
       result.success("Failure");
+    }
+  }
+  private Uri getUriFromFilePath(String filePath) {
+    File videoFile = new File(filePath);
+    if (videoFile.exists()) {
+      return FileProvider.getUriForFile(activity, activity.getApplicationContext().getPackageName() + ".provider", videoFile);
+    }
+    return null;
+  }
+  private void shareVideoToInstagram(String videoPath, MethodChannel.Result result) {
+    if (instagramInstalled()) {
+      Uri videoUri = getUriFromFilePath(videoPath);
+      if (videoUri != null) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("video/*");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, videoUri);
+        shareIntent.setPackage("com.instagram.android");
+      Intent chooserIntent = Intent.createChooser(shareIntent, "Share to");
+
+        activity.startActivity(chooserIntent);
+        result.success("Video shared to Instagram");
+      } else {
+        result.error("UNAVAILABLE", "Video file not found", null);
+      }
+    } else {
+      result.error("UNAVAILABLE", "Instagram not installed", null);
     }
   }
 
