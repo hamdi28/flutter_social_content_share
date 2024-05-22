@@ -108,7 +108,7 @@ public class FlutterSocialContentSharePlugin implements FlutterPlugin, MethodCal
         url = call.argument("url");
         imageUrl = call.argument("imageUrl");
         imageName = call.argument("imageName");
-        Log.d("the sharetype is " + type);
+        System.out.println("Hello tyyyyyyyyyyyyyyyy"  +type);
 
         switch (type) {
           case "ShareType.facebookWithoutImage":
